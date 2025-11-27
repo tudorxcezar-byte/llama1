@@ -1007,5 +1007,59 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 1. Remove GAS buttons by text
+  document.querySelectorAll("a, button, span, div").forEach(el => {
+    const t = (el.textContent || "").toLowerCase();
+    if (t.includes("gas") && !t.includes("luz")) {
+      el.remove();
+    }
+  });
+
+  // 2. Remove GAS pricing blocks by class/id
+  document.querySelectorAll('[class*="gas"], [id*="gas"], [data-type="gas"]').forEach(el => {
+    el.remove();
+  });
+
+  // 3. Force LUZ as the only active option
+  document.querySelectorAll('[class*="luz"], [data-type="luz"]').forEach(el => {
+    el.classList.add("active");
+    el.style.display = "block";
+  });
+
+  // 4. Remove any remaining toggle containers
+  document.querySelectorAll('.toggle, .switch, .selector, .tabs').forEach(el => {
+    if (el.textContent.toLowerCase().includes("gas")) {
+      el.remove();
+    }
+  });
+
+  console.log("✅ GAS fully removed. Only LUZ remains.");
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  function removeChatButtons() {
+    // WhatsApp plugin containers
+    document.querySelectorAll(
+      '.ht-ctc, .ht_ctc, .ht-ctc-chat, .ht-ctc-whatsapp, ' +
+      '.modal-float-button, .wow-modal-id-1, ' +
+      'a[href*="wa.me"], a[href*="whatsapp"], ' +
+      'a[href^="tel:"], .fa-phone, .fa-phone-volume'
+    ).forEach(el => el.remove());
+  }
+
+  // Run immediately
+  removeChatButtons();
+
+  // Run again if plugins re-inject them (very important)
+  setInterval(removeChatButtons, 500);
+
+  console.log("✅ WhatsApp & Phone icons permanently removed");
+});
+</script>
 
 </body></html>
